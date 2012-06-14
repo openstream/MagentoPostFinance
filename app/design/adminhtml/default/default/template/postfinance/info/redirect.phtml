@@ -1,0 +1,3 @@
+<?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?><br />
+<?php echo Mage::helper('payment')->__('Payment ID: %s', $this->htmlEscape($this->getInfo()->getAdditionalInformation('paymentId'))) ?><br/>
+<?php echo Mage::helper('payment')->__('Status: %s', Mage::helper('postfinance')->getStatusText($this->getInfo()->getAdditionalInformation('status'))) ?><br/>

@@ -1,0 +1,9 @@
+.ops-payment-paypage #ie_cc {margin-top:20px;}
+.ops-payment-paypage #ie_cc td {text-align:center;}
+
+td .ncol {
+    position: absolute;
+    left: 50%;
+    margin-left: -40px;
+    width: 40px;
+}

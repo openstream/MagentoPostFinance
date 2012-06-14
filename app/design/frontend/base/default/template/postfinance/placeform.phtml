@@ -1,0 +1,53 @@
+<form name="postfinance" id="postfinance_review_form" action="<?php echo $this->getFormAction();?>" method="post" accept-charset="UTF-8">
+    <?php $formData = $this->getFormData(); ?>
+
+    <?php if ($this->getQuestion()): ?>
+        <div id="messages_product_view">
+            <ul class="messages">
+                <li class="note-msg">
+                    <ul>
+                        <li><?php echo $this->getQuestion(); ?></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="fieldset">
+            <h2 class="legend"><?php echo Mage::helper('postfinance')->__('Your details') ?></h2>
+            <ul class="form-list">
+    <?php else: ?>
+        <p><strong><?php echo Mage::helper('postfinance')->__('Please wait a moment. This page will transfer your data to PostFinance payment gateway in a few seconds.'); ?></strong></p>
+    <?php endif; ?>
+
+    <?php if (is_array($formData)): ?>
+        <fieldset>
+            <?php foreach ($formData as $name => $value) { ?>
+                <?php if (in_array($name, $this->getQuestionedFormFields())): ?>
+                    <label class="required" for="<?php echo($name); ?>"><?php echo Mage::helper('postfinance')->__($name) ?> <em>*</em></label>
+                    <div class="input-box"><input class="required-entry" id="<?php echo($name); ?>" name="<?php echo($name); ?>" value="<?php echo(htmlentities($value, ENT_COMPAT, 'UTF-8')); ?>" /></div>
+                <?php else: ?>
+                    <input type="hidden" name="<?php echo($name); ?>" value="<?php echo(htmlentities($value, ENT_COMPAT, 'UTF-8')); ?>" />
+                <?php endif; ?>
+            <?php }?>
+        </fieldset>
+    <?php endif; ?>
+    <?php if ($this->getQuestion()): ?>
+            </ul>
+        </div>
+        <div class="buttons-set">
+            <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+            <button class="button" title="OK" type="submit">
+                <span><span>OK</span></span>
+            </button>
+        </div>
+    <?php endif; ?>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var review = new VarienForm('postfinance_review_form', '');
+    <?php if (is_null($this->getQuestion())): ?>
+    Event.observe(window, 'load', function() {
+        review.submit();
+    });
+    <?php endif; ?>
+//]]>
+</script>

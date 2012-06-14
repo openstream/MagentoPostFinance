@@ -1,0 +1,95 @@
+<script type="text/javascript">
+    Translator.add(
+        'Account number must contain numbers only.',
+        '<?php echo Mage::helper('postfinance')->__('Account number must contain numbers only.') ?>'
+    );
+    Translator.add(
+        'Bank code must contain numbers only.',
+        '<?php echo Mage::helper('postfinance')->__('Bank code must contain numbers only.') ?>'
+    );
+    Translator.add(
+        'Payment failed. Please select another payment method.',
+        '<?php echo Mage::helper('postfinance')->__('Payment failed. Please select another payment method.') ?>'
+    );
+    Translator.add(
+        'Payment failed. Please review your input or select another payment method.',
+        '<?php echo Mage::helper('postfinance')->__('Payment failed. Please review your input or select another payment method.') ?>'
+    );
+    Validation.addAllThese([
+        ['validate-postfinance-cc-exp', 'Incorrect credit card expiration date', function(v, elm) {
+                var ccExpMonth   = v;
+                var ccExpYear    = '20' + $('POSTFINANCE_CC_ECOM_CARDINFO_EXPDATE_YEAR').value;
+                var currentTime  = new Date();
+                var currentMonth = currentTime.getMonth() + 1;
+                var currentYear  = currentTime.getFullYear();
+                if (ccExpMonth < currentMonth && ccExpYear == currentYear) {
+                    return false;
+                }
+                return true;
+        }]
+    ]);
+</script>
+
+<?php $_code = $this->getMethodCode() ?>
+
+<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+<?php if ($_code == 'postfinance_cc') : ?>
+    <li>
+        <label class="required" for="POSTFINANCE_CC_BRAND"><?php echo $this->__('Credit Card Type'); ?></label><br/>
+        <select title="POSTFINANCE_CC_BRAND" class="required-entry" autocomplete="off" name="POSTFINANCE_CC_BRAND" id="POSTFINANCE_CC_BRAND" onchange="payment.togglePostFinanceCcInputs(this.value)">
+            <option value=""><?php echo $this->__('--Please Select--')?></option>
+            <?php foreach($this->getCCBrands() as $brand) : ?>
+                <option value="<?php echo $brand; ?>"><?php echo $brand; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <ul style="display:none" id="postfinance_cc_data">
+            <li>
+                <label class="required" for="POSTFINANCE_CC_CN"><?php echo $this->__('Name on Card'); ?><em>*</em></label><br/>
+                <input title="POSTFINANCE_CC_CN" class="input-text required-entry" autocomplete="off" type="text" name="postfinance_cc[cn]" id="POSTFINANCE_CC_CN" length="50" />
+            </li>
+            <li>
+                <label class="required" for="POSTFINANCE_CC_CARDNO"><?php echo $this->__('Credit Card Number'); ?><em>*</em></label><br/>
+                <input title="POSTFINANCE_CC_CARDNO" class="input-text validate-cc-number validate-cc-type required-entry" autocomplete="off" type="text" name="postfinance_cc[cardno]" id="POSTFINANCE_CC_CARDNO" length="35" />
+            </li>
+            <li>
+                <label class="required" for="POSTFINANCE_CC_CVC"><?php echo $this->__('Card Verification Number'); ?><em>*</em></label><br/>
+                <input class="input-text required-entry" type="text" name="postfinance_cc[cvc]" id="POSTFINANCE_CC_CVC" length="6" />
+            </li>
+            <li>
+                <label class="required" for="POSTFINANCE_CC_ECOM_CARDINFO_EXPDATE_MONTH"><?php echo $this->__('Expiration Date'); ?><em>*</em></label>
+                <div class="input-box">
+                    <div class="v-fix">
+                        <select class="month required-entry validate-postfinance-cc-exp month" autocomplete="off" name="postfinance_cc[month]" id="POSTFINANCE_CC_ECOM_CARDINFO_EXPDATE_MONTH">
+                            <?php foreach(range(1,12) as $month) : ?>
+                                <option value="<?php echo str_pad($month, 2, '0', STR_PAD_LEFT); ?>"><?php echo $month; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="v-fix">
+                        <select class="year required-entry" autocomplete="off" name="postfinance_cc[year]" id="POSTFINANCE_CC_ECOM_CARDINFO_EXPDATE_YEAR">
+                            <?php foreach(range(date('Y'), date('Y')+10) as $year) : ?>
+                                <option value="<?php echo substr($year, 2, 2); ?>"><?php echo $year; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </li>    
+        </ul>
+    </li>
+    <iframe id="postfinance_iframe_<?php echo $_code ?>" style="display: none;"></iframe>
+    <script type="text/javascript">
+        var hashUrl = '<?php echo $this->getGenerateHashUrl(); ?>';
+        var orderId = '<?php echo $this->getQuote()->getId(); ?>';
+        var pspid = '<?php echo $this->getPSPID(); ?>';
+        var acceptUrl = '<?php echo $this->getAcceptUrl(); ?>';
+        var exceptionUrl = '<?php echo $this->getExceptionUrl(); ?>';
+        var url = '<?php echo $this->getAliasGatewayUrl(); ?>';
+        var alias = '<?php echo Mage::helper('postfinance/payment')->getAlias($this->getQuote()) ?>';
+        var postfinanceCcSaveAliasUrl = '<?php echo $this->getCcSaveAliasUrl(); ?>';
+        var postfinanceSaveCcBrandUrl = '<?php echo $this->getSaveCcBrandUrl(); ?>';
+        var postfinanceCcBrandsForAliasInterface = '<?php echo json_encode($this->getMethod()->getBrandsForAliasInterface()) ?>'.evalJSON();
+    </script>
+<?php else : ?>
+    <?php echo $this->__('You will be redirected to PostFinance website when you place an order.') ?>
+<?php endif; ?>
+</ul>

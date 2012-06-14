@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <payment_services>
+            <groups>
+                <postfinance translate="label comment" module="postfinance">
+                    <label>PostFinance Account</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <debug_flag translate="label">
+                            <label>Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </debug_flag>                        
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <pspid translate="label comment">
+                            <label>PSPID</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>PSPID is a case sensitive field</comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </pspid>
+                        <secret_key_out translate="label comment">
+                            <label>SHA-IN Pass phrase</label>
+                            <comment><![CDATA[Refer to PostFinance's backend in section <em>Technical Information</em> on tab <em>Data and origin verification</em>.]]></comment>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <frontend_type>obscure</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </secret_key_out>
+                        <secret_key_in translate="label comment">
+                            <label>SHA-OUT Pass phrase</label>
+                            <comment><![CDATA[Refer to PostFinance's backend in section <em>Technical Information</em> on tab <em>Transaction feedback</em>.]]></comment>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <frontend_type>obscure</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </secret_key_in>
+                        <frontend_gateway translate="label comment">
+                            <label>Frontend Gateway URL</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>For production, replace "test" with "prod" Example: https://secure.domain.tld/ncol/prod/orderstandard_utf8.asp</comment>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </frontend_gateway>
+                        <postfinance_alias_gateway translate="label comment">
+                            <label>Alias Gateway URL</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>For production, replace "test" with "prod" Example: https://secure.domain.tld/ncol/prod/alias_gateway_utf8.asp</comment>
+                            <sort_order>71</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </postfinance_alias_gateway>
+                        <directlink_gateway translate="label comment">
+                            <label>DirectLink Gateway URL</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>For production, replace "test" with "prod" Example: https://secure.domain.tld/ncol/prod/maintenancedirect.asp</comment>
+                            <sort_order>72</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </directlink_gateway>
+                        <directlink_gateway_order translate="label comment">
+                            <label>DirectLink Gateway Order URL</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>For production, replace "test" with "prod" Example: https://secure.domain.tld/ncol/prod/orderdirect.asp</comment>
+                            <sort_order>73</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </directlink_gateway_order>
+                        <api_userid>
+                            <label>API User</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </api_userid>
+                        <api_pswd>
+                            <label>API Password</label>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <frontend_type>obscure</frontend_type>
+                            <sort_order>88</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </api_pswd>
+                        <payment_action translate="label comment">
+                            <label>Payment Action</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>postfinance/source_paymentAction</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </payment_action>
+                        <template translate="label comment">
+                            <label>Payment Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>postfinance/source_template</source_model>
+                            <comment>If you choose "PostFinance", you will need to fill in all the following fields.</comment>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </template>
+                        <html_title translate="label comment">
+                            <label>Title of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </html_title>
+                        <bgcolor translate="label comment">
+                            <label>Background Color of PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[e.g: white]]></comment>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </bgcolor>
+                        <txtcolor translate="label comment">
+                            <label>Text Color of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[e.g: black]]></comment>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </txtcolor>
+                        <tblbgcolor translate="label comment">
+                            <label>Table Background Color of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[e.g: white]]></comment>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tblbgcolor>
+                        <tbltxtcolor translate="label comment">
+                            <label>Table Text Color of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[e.g: black]]></comment>
+                            <sort_order>160</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tbltxtcolor>
+                        <showcatalogbutton translate="label">
+                            <label>Show catalog button</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>165</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </showcatalogbutton>
+                        <showhomebutton translate="label">
+                            <label>Show home button</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>165</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </showhomebutton>
+                        <buttonbgcolor translate="label">
+                            <label>Button Background Color of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>170</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </buttonbgcolor>
+                        <buttontxtcolor translate="label comment">
+                            <label>Button Text Color of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[e.g: white]]></comment>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </buttontxtcolor>
+                        <fonttype translate="label comment">
+                            <label>Font Family of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[e.g: Verdana]]></comment>
+                            <sort_order>190</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fonttype>
+                        <logo translate="label comment">
+                            <label>Logo of the PostFinance Template</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>URL/filename of the logo. The URL must be absolute and stored on a secure server.</comment>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo>
+                        <pmlist translate="label comment">
+                            <label>Layout of Payment Methods</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>postfinance/source_pmlist</source_model>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pmlist>
+                    </fields>
+                </postfinance>
+            </groups>
+        </payment_services>
+        <payment>
+            <groups>
+                <postfinance_efinance translate="label">
+                    <label>PostFinance EFinance</label>
+                    <sort_order>102</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </title>
+                        <sort_order translate="label">
+                            <label>Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                    </fields>
+                </postfinance_efinance>
+                <postfinance_cc translate="label">
+                    <label>Credid Cards (via PostFinance)</label>
+                    <sort_order>102</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </title>
+                        <sort_order translate="label">
+                            <label>Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                        <types translate="label">
+                            <label>Card Types</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>30</sort_order>
+                            <source_model>postfinance/source_cc_types</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </types>
+                        <enabled_3dsecure translate="label">
+                            <label>Enable 3D secure</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled_3dsecure>
+                    </fields>
+                </postfinance_cc>
+            </groups>
+        </payment>
+    </sections>
+</config>

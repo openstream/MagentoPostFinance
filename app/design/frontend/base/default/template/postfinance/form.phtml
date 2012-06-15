@@ -78,15 +78,15 @@
     </li>
     <iframe id="postfinance_iframe_<?php echo $_code ?>" style="display: none;"></iframe>
     <script type="text/javascript">
-        var hashUrl = '<?php echo $this->getGenerateHashUrl(); ?>';
+        var hashUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('generatehash') ?>';
         var orderId = '<?php echo $this->getQuote()->getId(); ?>';
-        var pspid = '<?php echo $this->getPSPID(); ?>';
-        var acceptUrl = '<?php echo $this->getAcceptUrl(); ?>';
-        var exceptionUrl = '<?php echo $this->getExceptionUrl(); ?>';
-        var url = '<?php echo $this->getAliasGatewayUrl(); ?>';
+        var pspid = '<?php echo $this->getConfig()->getPSPID() ?>';
+        var acceptUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('accept') ?>';
+        var exceptionUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('exception') ?>';
+        var url = '<?php echo $this->getConfig()->getAliasGatewayUrl(); ?>';
         var alias = '<?php echo Mage::helper('postfinance/payment')->getAlias($this->getQuote()) ?>';
-        var postfinanceCcSaveAliasUrl = '<?php echo $this->getCcSaveAliasUrl(); ?>';
-        var postfinanceSaveCcBrandUrl = '<?php echo $this->getSaveCcBrandUrl(); ?>';
+        var postfinanceCcSaveAliasUrl = '<?php echo $this->getConfig()->getCcSaveAliasUrl() ?>';
+        var postfinanceSaveCcBrandUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('saveCcBrand') ?>';
         var postfinanceCcBrandsForAliasInterface = '<?php echo json_encode($this->getMethod()->getBrandsForAliasInterface()) ?>'.evalJSON();
     </script>
 <?php else : ?>

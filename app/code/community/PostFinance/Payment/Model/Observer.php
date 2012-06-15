@@ -169,9 +169,9 @@ class PostFinance_Payment_Model_Observer
                 'LANGUAGE'         => Mage::app()->getLocale()->getLocaleCode(),
                 'HTTP_ACCEPT'      => '*/*',
                 'HTTP_USER_AGENT'  => 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)',
-                'ACCEPTURL'        => $config->getAcceptUrl(),
-                'DECLINEURL'       => $config->getDeclineUrl(),
-                'EXCEPTIONURL'     => $config->getExceptionUrl(),
+                'ACCEPTURL'        => $config->getPostFinanceUrl('accept'),
+                'DECLINEURL'       => $config->getPostFinanceUrl('decline'),
+                'EXCEPTIONURL'     => $config->getPostFinanceUrl('exception')
             );
         }
         $requestParams = array_merge($requestParams, $requestParams3ds);

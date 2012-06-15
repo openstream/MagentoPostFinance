@@ -217,13 +217,14 @@ class PostFinance_Payment_PaymentController extends PostFinance_Payment_Controll
      */
     public function generateHashAction()
     {
+        /** @var $config PostFinance_Payment_Model_Config */
         $config = Mage::getModel('postfinance/config');
 
         $data = array(
-            'ACCEPTURL'     => $config->getAcceptUrl(),
+            'ACCEPTURL'     => $config->getPostFinanceUrl('accept'),
             'ALIAS'         => $this->_request->getParam('alias'),
             'BRAND'         => $this->_request->getParam('brand'),
-            'EXCEPTIONURL'  => $config->getExceptionUrl(),
+            'EXCEPTIONURL'  => $config->getPostFinanceUrl('exception'),
             'ORDERID'       => $this->_request->getParam('orderid'),
             'PARAMPLUS'     => $this->_request->getParam('paramplus'),
             'PSPID'         => $config->getPSPID(),

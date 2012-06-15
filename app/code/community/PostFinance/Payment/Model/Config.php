@@ -110,61 +110,6 @@ class PostFinance_Payment_Model_Config extends Mage_Payment_Model_Config
     }
 
     /**
-     * Get paypage template for Magento style templates using
-     *
-     * @return string
-     */
-    public function getPayPageTemplate()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'paypage',
-            array('_nosid' => true, '_secure' => $this->isCurrentlySecure()));
-    }
-
-    /**
-     * Return url which PostFinance system will use as accept
-     *
-     * @return string
-     */
-    public function getAcceptUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'accept',
-            array('_nosid' => true, '_secure' => $this->isCurrentlySecure()));
-    }
-
-    /**
-     * Return url which PostFinance system will use as decline url
-     *
-     * @return string
-     */
-    public function getDeclineUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'decline',
-            array('_nosid' => true, '_secure' => $this->isCurrentlySecure()));
-    }
-
-    /**
-     * Return url which PostFinance system will use as exception url
-     *
-     * @return string
-     */
-    public function getExceptionUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'exception',
-            array('_nosid' => true, '_secure' => $this->isCurrentlySecure()));
-    }
-
-    /**
-     * Return url which PostFinance system will use as cancel url
-     *
-     * @return string
-     */
-    public function getCancelUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'cancel',
-            array('_nosid' => true, '_secure' => $this->isCurrentlySecure()));
-    }
-
-    /**
      * Return url which PostFinance system will use as continue shopping url
      *
      * @param array $redirect
@@ -176,46 +121,6 @@ class PostFinance_Payment_Model_Config extends Mage_Payment_Model_Config
         $urlParams = array('_nosid' => true, '_secure' => $this->isCurrentlySecure());
         if (!empty($redirect)) $urlParams = array_merge($redirect, $urlParams);
         return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'continue', $urlParams);
-    }
-
-    /**
-     * Return url to redirect after confirming the order
-     * 
-     * @return string
-     */
-    public function getPaymentRedirectUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'placeform',
-            array('_secure' => true, '_nosid' => true));
-    }
-    
-    /**
-     * Return 3D Secure url to redirect after confirming the order
-     * 
-     * @return string
-     */
-    public function get3dSecureRedirectUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'placeform3dsecure',
-            array('_secure' => true, '_nosid' => true));
-    }
-    
-    public function getSaveCcBrandUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'saveCcBrand',
-            array('_secure' => $this->isCurrentlySecure(), '_nosid' => true));
-    }
-
-    public function getGenerateHashUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'generatehash',
-            array('_secure' => $this->isCurrentlySecure(), '_nosid' => true));
-    }
-
-    public function getRegisterDirectDebitPaymentUrl()
-    {
-        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . 'registerDirectDebitPayment',
-            array('_secure' => $this->isCurrentlySecure(), '_nosid' => true));
     }
 
     /**
@@ -259,5 +164,13 @@ class PostFinance_Payment_Model_Config extends Mage_Payment_Model_Config
     public function isCurrentlySecure()
     {
         return Mage::app()->getStore()->isCurrentlySecure();
+    }
+
+    public function getPostFinanceUrl($token = '', $secure = null)
+    {
+        if(is_null($secure)){
+            $secure = $this->isCurrentlySecure();
+        }
+        return Mage::getUrl(self::POSTFINANCE_CONTROLLER_ROUTE_PAYMENT . $token, array('_nosid' => true, '_secure' => $secure));
     }
 }

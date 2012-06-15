@@ -5,7 +5,6 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
     protected $_code  = 'postfinance';
     protected $_formBlockType = 'postfinance/form';
     protected $_infoBlockType = 'postfinance/info';
-    protected $_config = null;
 
      /**
      * Magento Payment Behaviour Settings
@@ -115,10 +114,7 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
      */
     public function getConfig()
     {
-        if (is_null($this->_config)):
-           $this->_config = Mage::getSingleton('postfinance/config');
-        endif;
-        return $this->_config;
+        return Mage::getSingleton('postfinance/config');
     }
 
     /**
@@ -128,7 +124,7 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
      */
     public function getOrderPlaceRedirectUrl()
     {
-          return $this->getConfig()->getPaymentRedirectUrl();
+          return $this->getConfig()->getPostFinanceUrl('placeform', true);
     }
 
     /**
@@ -205,7 +201,7 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
             $formFields['TP']= '';
             $formFields['PMLISTTYPE'] = $this->getConfig()->getConfigData('pmlist');
         } else {
-            $formFields['TP']= $this->getConfig()->getPayPageTemplate();
+            $formFields['TP']= $this->getConfig()->getPostFinanceUrl('paypage');
         }
         $formFields['TITLE']            = $this->getConfig()->getConfigData('html_title');
         $formFields['BGCOLOR']          = $this->getConfig()->getConfigData('bgcolor');
@@ -218,11 +214,11 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
         $formFields['LOGO']             = $this->getConfig()->getConfigData('logo');        
         $formFields['HOMEURL']          = $this->getConfig()->hasHomeUrl() ? $this->getConfig()->getContinueUrl(array('redirect' => 'home')) : 'NONE';
         $formFields['CATALOGURL']       = $this->getConfig()->hasCatalogUrl() ? $this->getConfig()->getContinueUrl(array('redirect' => 'catalog')) : '';
-        $formFields['ACCEPTURL']        = $this->getConfig()->getAcceptUrl();
-        $formFields['DECLINEURL']       = $this->getConfig()->getDeclineUrl();
-        $formFields['EXCEPTIONURL']     = $this->getConfig()->getExceptionUrl();
-        $formFields['CANCELURL']        = $this->getConfig()->getCancelUrl();
-        $formFields['BACKURL']          = $this->getConfig()->getCancelUrl();
+        $formFields['ACCEPTURL']        = $this->getConfig()->getPostFinanceUrl('accept');
+        $formFields['DECLINEURL']       = $this->getConfig()->getPostFinanceUrl('decline');
+        $formFields['EXCEPTIONURL']     = $this->getConfig()->getPostFinanceUrl('exception');
+        $formFields['CANCELURL']        = $this->getConfig()->getPostFinanceUrl('cancel');
+        $formFields['BACKURL']          = $this->getConfig()->getPostFinanceUrl('cancel');
 
         /** @var $paymentHelper PostFinance_Payment_Helper_Payment */
         $paymentHelper = Mage::helper('postfinance/payment');

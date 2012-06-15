@@ -43,7 +43,7 @@ class PostFinance_Payment_Model_Payment_Cc extends PostFinance_Payment_Model_Pay
             if ('' == $this->getHtmlAnswer($payment)){
                 return false; // Prevent redirect on cc payment
             } else {
-                return Mage::getModel('postfinance/config')->get3dSecureRedirectUrl();
+                return $this->getConfig()->getPostFinanceUrl('placeform3dsecure', true);
             }
         }
         return parent::getOrderPlaceRedirectUrl();

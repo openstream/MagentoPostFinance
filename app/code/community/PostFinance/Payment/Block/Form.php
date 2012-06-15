@@ -44,41 +44,41 @@ class PostFinance_Payment_Block_Form extends Mage_Payment_Block_Form_Cc
 
     public function getPSPID()
     {
-        return Mage::getModel('postfinance/config')->getPSPID();
+        return $this->getConfig()->getPSPID();
     }
 
     public function getAcceptUrl()
     {
-        return Mage::getModel('postfinance/config')->getAcceptUrl();
+        return $this->getConfig()->getAcceptUrl();
     }
 
     public function getExceptionUrl()
     {
-        return Mage::getModel('postfinance/config')->getExceptionUrl();
+        return $this->getConfig()->getExceptionUrl();
     }
 
     public function getAliasGatewayUrl()
     {
-        return Mage::getModel('postfinance/config')->getAliasGatewayUrl();
+        return $this->getConfig()->getAliasGatewayUrl();
     }
 
     public function getSaveCcBrandUrl()
     {
-        return Mage::getModel('postfinance/config')->getSaveCcBrandUrl();
+        return $this->getConfig()->getSaveCcBrandUrl();
     }
 
     public function getGenerateHashUrl()
     {
-        return Mage::getModel('postfinance/config')->getGenerateHashUrl();
+        return $this->getConfig()->getGenerateHashUrl();
     }
 
     public function getCcSaveAliasUrl()
     {
-        return Mage::getModel('postfinance/config')->getCcSaveAliasUrl();
+        return $this->getConfig()->getCcSaveAliasUrl();
     }
 
     public function getRegisterDirectDebitPaymentUrl()
     {
-        return Mage::getModel('postfinance/config')->getRegisterDirectDebitPaymentUrl();
+        return $this->getConfig()->getRegisterDirectDebitPaymentUrl();
     }
 }

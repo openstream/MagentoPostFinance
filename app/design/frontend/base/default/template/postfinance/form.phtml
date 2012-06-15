@@ -81,8 +81,8 @@
         var hashUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('generatehash') ?>';
         var orderId = '<?php echo $this->getQuote()->getId(); ?>';
         var pspid = '<?php echo $this->getConfig()->getPSPID() ?>';
-        var acceptUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('accept') ?>';
-        var exceptionUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('exception') ?>';
+        var acceptUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('acceptAlias') ?>';
+        var exceptionUrl = '<?php echo $this->getConfig()->getPostFinanceUrl('exceptionAlias') ?>';
         var url = '<?php echo $this->getConfig()->getAliasGatewayUrl(); ?>';
         var alias = '<?php echo Mage::helper('postfinance/payment')->getAlias($this->getQuote()) ?>';
         var postfinanceCcSaveAliasUrl = '<?php echo $this->getConfig()->getCcSaveAliasUrl() ?>';

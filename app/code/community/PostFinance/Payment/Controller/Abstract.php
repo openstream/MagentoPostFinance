@@ -83,8 +83,6 @@ class PostFinance_Payment_Controller_Abstract extends Mage_Core_Controller_Front
     {
         $params = $this->getRequest()->getParams();
 
-        if ($this->isJsonRequested($params)) return true;
-
         $secureKey = $this->_getApi()->getConfig()->getShaInCode();
         $secureSet = $this->getPaymentHelper()->getSHAInSet($params, $secureKey);
 

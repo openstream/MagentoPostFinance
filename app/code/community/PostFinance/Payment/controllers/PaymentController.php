@@ -66,64 +66,56 @@ class PostFinance_Payment_PaymentController extends PostFinance_Payment_Controll
      */
     public function acceptAction()
     {
-        if ($this->isJsonRequested($this->getRequest()->getParams())) {
-            $result = array('result' => 'success', 'alias' => $this->_request->getParam('Alias'));
-            return $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-        }
-
         try {
             $this->checkRequestValidity();
             $this->getPaymentHelper()->applyStateForOrder(
                 $this->_getOrder(),
                 $this->getRequest()->getParams()
             );
+            $this->_redirect('checkout/onepage/success');
         } catch (Exception $e) {
             /* @var $helper PostFinance_Payment_Helper_Data */
             $helper = Mage::helper('postfinance');
             $helper->log($helper->__("Exception in acceptAction: ".$e->getMessage()));
             $this->getPaymentHelper()->refillCart($this->_getOrder());
             $this->_redirect('checkout/cart');
-            return false;
         }
-        $this->_redirect('checkout/onepage/success');
     }
 
-    /**
-     * the payment result is uncertain
-     * exception status can be 52 or 92
-     * need to change order status as processing postfinance
-     * update transaction id
-     *
-     */
+    public function acceptAliasAction()
+    {
+        $result = array('result' => 'success', 'alias' => $this->_request->getParam('Alias'));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+    }
+
     public function exceptionAction()
     {
-        $params = $this->getRequest()->getParams();
-
-        if ($this->isJsonRequested($params)) {
-            Mage::helper('postfinance')->log(var_export($params, true));
-            $errors = array();
-
-            foreach ($params as $key => $value) {
-                if (stristr($key, 'error') && 0 != $value) {
-                    $errors[] = $value;
-                }
-            }
-
-            $result = array('result' => 'failure', 'errors' => $errors);
-            return $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-        }
-
         try {
             $this->checkRequestValidity();
             $this->getPaymentHelper()->handleException(
                 $this->_getOrder(),
                 $this->getRequest()->getParams()
             );
+            $this->_redirect('checkout/onepage/success');
         } catch (Exception $e) {
             $this->_redirect('checkout/cart');
-            return false;
         }
-        $this->_redirect('checkout/onepage/success');
+    }
+
+    public function exceptionAliasAction()
+    {
+        $params = $this->getRequest()->getParams();
+        Mage::helper('postfinance')->log(var_export($params, true));
+        $errors = array();
+
+        foreach ($params as $key => $value) {
+            if (stristr($key, 'error') && 0 != $value) {
+                $errors[] = $value;
+            }
+        }
+
+        $result = array('result' => 'failure', 'errors' => $errors);
+        return $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
     /**
@@ -221,10 +213,10 @@ class PostFinance_Payment_PaymentController extends PostFinance_Payment_Controll
         $config = Mage::getModel('postfinance/config');
 
         $data = array(
-            'ACCEPTURL'     => $config->getPostFinanceUrl('accept'),
+            'ACCEPTURL'     => $config->getPostFinanceUrl('acceptAlias'),
             'ALIAS'         => $this->_request->getParam('alias'),
             'BRAND'         => $this->_request->getParam('brand'),
-            'EXCEPTIONURL'  => $config->getPostFinanceUrl('exception'),
+            'EXCEPTIONURL'  => $config->getPostFinanceUrl('exceptionAlias'),
             'ORDERID'       => $this->_request->getParam('orderid'),
             'PARAMPLUS'     => $this->_request->getParam('paramplus'),
             'PSPID'         => $config->getPSPID(),

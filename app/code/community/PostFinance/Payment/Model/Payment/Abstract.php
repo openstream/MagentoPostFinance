@@ -180,7 +180,7 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
         $formFields = array();
         $formFields['PSPID']    = $this->getConfig()->getPSPID();
         $formFields['AMOUNT']   = round($order->getBaseGrandTotal()*100);
-        $formFields['CURRENCY'] = Mage::app()->getStore()->getBaseCurrencyCode();
+        $formFields['CURRENCY'] = Mage::app()->getStore()->getCurrentCurrencyCode();
         $formFields['ORDERID']  = $this->getConfig()->getConfigData('devprefix').$order->getQuoteId();
         $formFields['LANGUAGE'] = Mage::app()->getLocale()->getLocaleCode();
         $formFields['PM']       = $this->getPaymentCode();

@@ -257,24 +257,25 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
     }
 
     /**
-     * get formated order description
+     * get formatted order description
      *
-     * @param Mage_Sales_Model_Order
+     * @param $order Mage_Sales_Model_Order
      * @return string
      */
     protected function _getOrderDescription($order)
     {
         $invoiceDesc = '';
-        $lengs = 0;
-        foreach ($order->getAllItems() as $item) {
-            if ($item->getParentItem()) continue;
-            //COM field is limited to 100 chars max
-            if (Mage::helper('core/string')->strlen($invoiceDesc.$item->getName()) > 100) break;
-            $invoiceDesc .= preg_replace("/[^a-zA-Z0-9äáéèíóöõúüûÄÁÉÍÓÖÕÚÜÛ_ ]/" , "" , $item->getName()) . ', ';
+        /** @var $helper Mage_Core_Helper_String */
+        $helper = Mage::helper('core/string');
+        //COM field is limited to 100 chars max
+        while ((list(, $item) = each($order->getAllItems())) && $helper->strlen($invoiceDesc.$item->getName()) > 100) {
+            /** @var $item Mage_Sales_Model_Order_Item */
+            if (!$item->getParentItem()){
+                $invoiceDesc .= ($invoiceDesc ? ', ' : '') . preg_replace("/[^a-zA-Z0-9äáéèíóöõúüûÄÁÉÍÓÖÕÚÜÛ_ ]/" , "" , $item->getName());
+            }
         }
-        return Mage::helper('core/string')->substr($invoiceDesc, 0, -2);
-    }
-
+        return $invoiceDesc;
+     }
     /**
      * Get Main PostFinance Helper
      *

@@ -268,10 +268,14 @@ class PostFinance_Payment_Model_Payment_Abstract extends Mage_Payment_Model_Meth
         /** @var $helper Mage_Core_Helper_String */
         $helper = Mage::helper('core/string');
         //COM field is limited to 100 chars max
-        while ((list(, $item) = each($order->getAllItems())) && $helper->strlen($invoiceDesc.$item->getName()) > 100) {
-            /** @var $item Mage_Sales_Model_Order_Item */
-            if (!$item->getParentItem()){
-                $invoiceDesc .= ($invoiceDesc ? ', ' : '') . preg_replace("/[^a-zA-Z0-9äáéèíóöõúüûÄÁÉÍÓÖÕÚÜÛ_ ]/" , "" , $item->getName());
+        foreach ($order->getAllItems() as $item) {
+            if ($helper->strlen($invoiceDesc . $item->getName()) < 100) {
+                /** @var $item Mage_Sales_Model_Order_Item */
+                if (!$item->getParentItem()) {
+                    $invoiceDesc .= ($invoiceDesc ? ', ' : '') . preg_replace("/[^a-zA-Z0-9äáéèíóöõúüûÄÁÉÍÓÖÕÚÜÛ_ ]/" , "" , $item->getName());
+                }
+            } else {
+                break;
             }
         }
         return $invoiceDesc;

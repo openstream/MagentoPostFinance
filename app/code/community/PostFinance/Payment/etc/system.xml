@@ -277,7 +277,7 @@
                     </fields>
                 </postfinance_efinance>
                 <postfinance_cc translate="label">
-                    <label>Credid Cards (via PostFinance)</label>
+                    <label>Credit Cards (via PostFinance)</label>
                     <sort_order>102</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
